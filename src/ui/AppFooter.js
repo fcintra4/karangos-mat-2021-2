@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
+import CoffeeIcon from '@mui/icons-material/Coffee';
 
 const useStyles = makeStyles(theme => (
   {
@@ -14,11 +15,13 @@ const useStyles = makeStyles(theme => (
     },
     toolbar: {
       backgroundColor: theme.palette.background.paper,
-      color: theme.palette.text.primary
+      color: theme.palette.text.primary,
+      height: '40px'
     },
     typog: {
       width: '100%',
-      textAlign: 'center'
+      textAlign: 'center',
+      height: '40px'
     },
     link: {
       color: theme.palette.secondary.light,
@@ -37,9 +40,9 @@ export default function AppFooter() {
   return (
     <Box sx={{ flexGrow: 1}} component="footer" className={classes.box}>
       <AppBar position="static" className={classes.toolbar}>
-        <Toolbar variant="dense">
+        <Toolbar>
           <Typography variant="caption" color="inherit" component="div" className={classes.typog}>
-            Desenvolvido com café por <a className={classes.link} href="mailto:professor@faustocintra.com.br">Prof. Fausto Cintra</a>
+            Desenvolvido com <CoffeeIcon fontSize="small" /> por <a className={classes.link} href="mailto:professor@faustocintra.com.br">Prof. Fausto Cintra</a>
           </Typography>
         </Toolbar>
       </AppBar>
