@@ -2,19 +2,18 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+
 import MainMenu from './MainMenu';
+import logo from '../assets/karangos-logo-300px.png'
 
 export default function AppHeader() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" sx={{ padding: "8px 0" }}>
         <Toolbar>
           
           <MainMenu />
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Karangos
-          </Typography>
+          <img id="logo" src={logo} alt="Logotipo Karangos"/>
         </Toolbar>
       </AppBar>
     </Box>
