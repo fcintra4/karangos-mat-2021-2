@@ -1,7 +1,7 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import AppHeader from './ui/AppHeader'
 import AppFooter from './ui/AppFooter'
-import { createTheme, ThemeProvider } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material'; //import ThemeProvider, tudo dentro dele entra com o theme definido
 import { yellow, pink, grey } from '@mui/material/colors';
 import Box from '@mui/material/Box'
 
