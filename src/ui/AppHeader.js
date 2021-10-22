@@ -9,7 +9,7 @@ import logo from '../assets/karangos-logo-300px.png'
 export default function AppHeader() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ padding: "8px 0" }}>
+      <AppBar position="static" sx={{ padding: "8px 0" }} enableColorOnDark>
         <Toolbar>
           
           <MainMenu />

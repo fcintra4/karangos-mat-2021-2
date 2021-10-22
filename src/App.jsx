@@ -11,8 +11,7 @@ import ClientesForm from './routed/ClientesForm';
 
 const theme = createTheme({
   palette: {
-    //mode: 'dark',
-    type: 'dark',
+    mode: 'dark',
     primary: {
       main: yellow[500]
     },
