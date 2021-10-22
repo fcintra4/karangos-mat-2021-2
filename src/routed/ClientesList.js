@@ -10,13 +10,13 @@ import { Toolbar, Button } from '@mui/material'
 
 const useStyles = makeStyles(theme => ({
   dataGrid: {
-    color: theme.palette.text.primary + ' !important',
+    // color: theme.palette.text.primary + ' !important',
     '& .MuiTablePagination-root': {
       color: theme.palette.text.primary
-    },
+    },/*
     '& .MuiIconButton-root': {
       color: theme.palette.text.primary + ' !important'
-    },
+    },*/
     '& .MuiDataGrid-row button': {
       visibility: 'hidden'
     },
