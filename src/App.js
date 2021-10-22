@@ -10,13 +10,13 @@ import ClientesList from './routed/ClientesList'
 
 const customTheme = createTheme({
   palette: {
-    type: 'dark',
+    mode: 'dark',
     primary: {
       main: yellow[500]
     },
     secondary: {
       main: pink[500]
-    },
+    }/*,
     background: {
       default: grey[900],
       paper: grey[800]
@@ -25,7 +25,7 @@ const customTheme = createTheme({
       primary: grey[50],
       secondary: grey[300],
       disabled: grey[600]
-    }
+    }*/
   },
 });
 

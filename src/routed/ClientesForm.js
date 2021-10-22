@@ -1,5 +1,9 @@
-export default function ClientesForm() {
+export default function ClientesForm () {
+
   return (
-    <h1>Cadastro de novo cliente</h1>
+    <>
+      <h1> Cadastro de novos clientes </h1>
+    </>
   )
+
 }
