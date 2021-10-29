@@ -17,15 +17,6 @@ const theme = createTheme({
     },
     secondary: {
       main: pink[500]
-    },
-    background: {
-      default: grey[900],
-      paper: grey[800],
-    },
-    text: {
-      primary: grey[50],
-      secondary: grey[300],
-      disabled: grey[600]
     }
   },
 });
