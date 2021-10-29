@@ -6,8 +6,12 @@ import { IconButton } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Paper } from '@mui/material'
-import { Toolbar, Button } from '@mui/material'
+import { Toolbar, Button } from '@mui/material' 
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { useHistory } from 'react-router'
+import ConfirmDialog from '../ui/ConfirmDialog'
 
+//styles utilizando makeStyles 
 const useStyles = makeStyles(theme => ({
   dataGrid: {
     // color: theme.palette.text.primary + ' !important',
@@ -26,24 +30,32 @@ const useStyles = makeStyles(theme => ({
     '& .MuiDataGrid-row:hover': {
       backgroundColor: theme.palette.action.hover + ' !important'
     }
+  },
+  toolbar: {
+    padding: 0,
+    margin: '30px 0 ',
+    justifyContent: 'flex-end'
   }
 }))
 
 export default function ClientesList() {
 
-  const classes = useStyles()
+  const classes = useStyles();
+
+  const history = useHistory();
   
   const [state, setState] = React.useState({
-    clientes: []
+    clientes: [],
+    isDialogOpen: false
   })
-  const { clientes } = state
+  const { clientes, isDialogOpen } = state;
 
   React.useEffect(() => {
     // Buscando os dados na API do back-end (servidor remoto)
     axios.get('https://api.faustocintra.com.br/clientes').then(
       response => setState({...state, clientes: response.data})
     )
-  }, [])
+  }, []);
 
   const columns = [
     { 
@@ -94,7 +106,24 @@ export default function ClientesList() {
       disableColumnMenu: true,
       sortable: false,
       renderCell: params => (
-        //botão do material ui - arialabel para ler pelo leitor de tela
+        <IconButton
+         aria-label="excluir"
+         onClick={() => handleDelete(params.id)}
+         >
+          <EditIcon />
+        </IconButton>
+      )
+    },
+    {
+      field: 'excluir',
+      headerName: 'Excluir',
+      align: 'center',
+      headerAlign: 'center',
+      width: 100,
+      disableColumnMenu: true,
+      sortable: false,
+      renderCell: params => (
+        //botão do material ui - arialabel para ler pelo leitor de tela ?
         <IconButton aria-label="excluir">
           <DeleteForeverIcon color="error" />
         </IconButton>
@@ -103,12 +132,37 @@ export default function ClientesList() {
 
   ];
   
+  function handleDialogClose(answer){
+    if(answer) alert(`O usuario CONFIRMOU`)
+    else alert(`O usuario cancelou`)
+    //fechar a caixa de dialogo
+    setState({...state, isDialogOpen: false})
+  }
+
+  function handleDelete(id){
+    setState({...state, isDialogOpen: true})
+  }
+
   return (
     <>
       <h1>Listagem de clientes</h1>
-      
-      <Toolbar>
-        <Button variant="contained" size="large" color="secondary">Cadastrar novo cliente</Button>
+
+      <ConfirmDialog 
+      title="Atenção"
+      isOpen={isDialogOpen}
+      onClose={handleDialogClose}
+      >
+        Deseja realmente excluir este item?
+      </ConfirmDialog>
+
+      <Toolbar className={classes.toolbar}>
+        <Button startIcon={<AddCircleIcon />}
+         variant="contained" 
+         size="large"
+         color="secondary"
+         onClick={() => history.push('/clientes/new')}
+         >
+           Cadastrar novo cliente</Button>
       </Toolbar>
 
       <Paper elevation={4}>
