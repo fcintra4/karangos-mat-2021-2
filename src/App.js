@@ -39,12 +39,18 @@ function App() {
           <Box component="main" sx={{ margin: '20px' }}>
             <Switch>
 
-                
+              {/* Listagem de Clientes */}    
               <Route path="/clientes" exact>
                 <ClientesList />
               </Route>
 
+              {/* Cadastro de novos clientes */}    
               <Route path="/clientes/new">
+                <ClientesForm />
+              </Route>
+
+              {/* Alteração de dados de clientes já existente */}    
+              <Route path="/clientes/:id">
                 <ClientesForm />
               </Route>
 
