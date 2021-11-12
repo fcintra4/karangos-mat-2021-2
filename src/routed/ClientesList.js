@@ -48,18 +48,19 @@ export default function ClientesList() {
   const [state, setState] = React.useState(() => ({ 
     clientes: [],
     deletable: null,
+    isDialogOpen: false,
     isSnackOpen: false,
     snackMessage: '',
     isError: false
   }))
-  const { clientes, deletable, isSnackOpen, snackMessage, isError } = state
+  const { clientes, deletable, isDialogOpen, isSnackOpen, snackMessage, isError } = state
 
-  const [isDialogOpen, setDialogOpen] = React.useState(false)
-
-  async function getData() {
+  function getData(otherState = state) {
     // Buscando os dados na API do back-end (servidor remoto)
-    let response = await axios.get('https://api.faustocintra.com.br/clientes')
-    setState({...state, clientes: response.data, isDialogOpen: false})
+    axios.get('https://api.faustocintra.com.br/clientes')
+    .then(
+      response => setState({...otherState, clientes: response.data})
+    )
   }
 
   React.useEffect(() => {
@@ -101,7 +102,10 @@ export default function ClientesList() {
       disableColumnMenu: true,
       sortable: false,
       renderCell: params => (
-        <IconButton aria-label="editar">
+        <IconButton 
+          aria-label="editar"
+          onClick={() => history.push(`/clientes/${params.id}`)}
+        >
           <EditIcon />
         </IconButton>
       )
@@ -127,12 +131,13 @@ export default function ClientesList() {
   ];
 
   function handleDialogClose(answer) {
-    
+
     // Fecha a caixa de diálogo de confirmação
-    setDialogOpen(false)
+    setState({...state, isDialogOpen: false})
 
     // O usuário confirmou a exclusão
     if(answer) {
+      
         // Usa o axios para enviar uma ordem de exclusão
         // para a API do back-end
         axios.delete(`https://api.faustocintra.com.br/clientes/${deletable}`)
@@ -140,14 +145,16 @@ export default function ClientesList() {
           // Callback se ser certo
           () => {
             // Exibe o snackbar com a mensagem de sucesso
-            setState({
+            console.log({isDialogOpen})
+            const newState = {
               ...state,
               isError: false,
               isSnackOpen: true,
+              isDialogOpen: false,
               snackMessage: 'Item excluído com sucesso'
-            })
+            }
             // Recarregar os dados da tabela
-            getData()
+            getData(newState)
           }
         )
         .catch(
@@ -167,8 +174,7 @@ export default function ClientesList() {
   }
 
   function handleDelete(id) {
-    setState({...state, deletable: id})
-    setDialogOpen(true)
+    setState({...state, deletable: id, isDialogOpen: true})
   }
   
   function handleSnackClose(event, reason) {
@@ -177,6 +183,7 @@ export default function ClientesList() {
     
     // Fechamento em condições normais
     setState({...state, isSnackOpen: false})
+    //getData()
   }
 
   return (
@@ -193,10 +200,14 @@ export default function ClientesList() {
 
       <Snackbar
         open={isSnackOpen}
-        autoHideDuration={null}
+        autoHideDuration={6000}
         onClose={handleSnackClose}
         message={snackMessage}
-        action={isError ? 'Que pena!' : 'Entendi'}
+        action={
+          <Button color="secondary" onClick={handleSnackClose}>
+            {isError ? 'Que pena!' : 'Entendi'}
+          </Button>
+        }
       />
       
       <Toolbar className={classes.toolbar}>
