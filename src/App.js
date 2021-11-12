@@ -1,58 +1,61 @@
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import AppHeader from './ui/AppHeader'
 import AppFooter from './ui/AppFooter'
-import ClientList from './routed/ClientList'
-import ClientForm from './routed/ClientForm'
-import { ThemeProvider, createTheme } from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/material';
+import { yellow, pink, grey } from '@mui/material/colors';
 import Box from '@mui/material/Box'
-import { yellow, pink, grey } from '@mui/material/colors'
+import { Button } from '@mui/material'
 
-const customTheme  = createTheme({
+import ClientesForm from './routed/ClientesForm'
+import ClientesList from './routed/ClientesList'
+
+const customTheme = createTheme({
   palette: {
-    type: 'dark',
+    mode: 'dark',
     primary: {
-      main: yellow[500],
+      main: yellow[500]
     },
-    secundary: {
-      main: pink[500],
+    secondary: {
+      main: pink[500]
+    }/*,
+    background: {
+      default: grey[900],
+      paper: grey[800]
     },
-    background:{
-      default: grey[800],
-      paper: grey[600]
-    },
-    text:{
+    text: {
       primary: grey[50],
       secondary: grey[300],
-      disabled: grey[600]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
-
-    }
-  }
-})
+      disabled: grey[600]
+    }*/
+  },
+});
 
 function App() {
+  console.log(customTheme.palette)
   return (
       <ThemeProvider theme={customTheme}>
-        <Box sx={{ height: '100vh', backgroundColor: customTheme.palette.background.default, color: customTheme.palette.primary }}>
+        
+        <Box sx={{ height: '100vh', backgroundColor: customTheme.palette.background.default, color: customTheme.palette.text.primary }}>
         <BrowserRouter>
-        <AppHeader/>
-        <Box component="main" sx={{margin: '20px'}}>
-          <Switch>
-            <Route path="/clientes">
-              <ClientList/>
-            </Route>
-            <Route path="/clientes/new">
-              <ClientForm/>
-            </Route>
-          </Switch>
+          <AppHeader />
+          <Box component="main" sx={{ margin: '20px' }}>
+            <Switch>
 
+              <Route path="/clientes" exact>
+                <ClientesList />
+              </Route>
+
+              <Route path="/clientes/new">
+                <ClientesForm />
+              </Route>
+
+            </Switch>
           </Box>
-        <AppFooter/>
+          <AppFooter />
         </BrowserRouter>
         </Box>
       </ThemeProvider>
-    
-    
-  )
+  );
 }
 
 export default App;

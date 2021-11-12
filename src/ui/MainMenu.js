@@ -3,18 +3,23 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
-import { makeStyles } from '@mui/styles';
-
+import { Link } from 'react-router-dom'
+import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles(theme => ({
-  link:{
+  menuItem: {
+    padding: 0
+  },
+  link: {
     color: theme.palette.text.primary,
-    textDecoration: 'none'
+    textDecoration: 'none',
+    padding: '10px'
   }
 }))
 
+
 export default function MainMenu() {
+
   const classes = useStyles()
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -50,12 +55,13 @@ export default function MainMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>
-          <Link className={classes.link} to="clientes">Profile</Link>
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-          <Link className={classes.link} to="clientes/new">Profile</Link>
-          </MenuItem>
+        <MenuItem className={classes.menuItem} onClick={handleClose}>
+          <Link className={classes.link} to="/clientes">Listagem de clientes</Link>
+        </MenuItem>
+        <MenuItem className={classes.menuItem} onClick={handleClose}>
+          <Link className={classes.link} to="/clientes/new">Cadastrar novo cliente</Link>
+        </MenuItem>
+        
       </Menu>
     </div>
   );
