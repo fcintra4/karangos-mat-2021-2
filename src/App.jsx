@@ -39,6 +39,9 @@ function App() {
               <Route path='/clientes/new'>
                 <ClientesForm/>
               </Route>
+              <Route path='/clientes/:id'>
+                <ClientesForm/>
+              </Route>
             </Switch>
           </Box>
           <AppFooter/>

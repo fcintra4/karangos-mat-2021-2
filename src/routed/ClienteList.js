@@ -69,7 +69,10 @@ export default function ClientesList() {
       headerAlign: 'center', disableColumnMenu: true,
       sortable: false,
       renderCell: params => (
-        <IconButton aria-label='Editar'>
+        <IconButton
+          aria-label='Editar'
+          onClick={() => history.push(`/clientes/${params.id}`)}
+        >
           <EditIcon />
         </IconButton>
       )
@@ -89,9 +92,9 @@ export default function ClientesList() {
     },
   ];
 
-  async function getData() {
+  async function getData(newState = state) {
     const { data: clientes } = await api.get('/clientes')
-    setState({ ...state, clientes, isDialogOpen:false })
+    setState({ ...newState, clientes, isDialogOpen:false })
   }
   
   useEffect(() => {
@@ -104,14 +107,14 @@ export default function ClientesList() {
       api.delete(`/clientes/${deletable}`)
         .then(
           () => {
-            setState({
+            let newState = {
               ...state,
               isError: false,
               isSnackOpen: true,
               snackMessage: 'Item excluido com sucesso',
               isDialogOpen: false
-            })
-            getData()
+            }
+            getData(newState)
           }
         )
         .catch(
