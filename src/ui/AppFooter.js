@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => (
   {
     box: {
       position: 'fixed',
-      bottom: 0,
+
       width: '100%'
     },
     toolbar: {
