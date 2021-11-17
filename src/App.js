@@ -4,10 +4,10 @@ import AppFooter from './ui/AppFooter'
 import { createTheme, ThemeProvider } from '@mui/material';
 import { yellow, pink, grey } from '@mui/material/colors';
 import Box from '@mui/material/Box'
-import { Button } from '@mui/material'
-
-import ClientesForm from './routed/ClientesForm'
-import ClientesList from './routed/ClientesList'
+import KarangosList from './routed/KarangosList';
+import KarangosForm from './routed/KarangosForm';
+import ClientesForm from './routed/ClientForm';
+import ClientesList from './routed/ClientList';
 
 const customTheme = createTheme({
   palette: {
@@ -40,7 +40,15 @@ function App() {
           <AppHeader />
           <Box component="main" sx={{ margin: '20px' }}>
             <Switch>
-
+            <Route path="/list">
+                <KarangosList />
+              </Route>
+              <Route path="/new">
+                <KarangosForm />
+              </Route>
+              <Route path="/edit/:id">
+                <KarangosForm/>
+              </Route>
               <Route path="/clientes" exact>
                 <ClientesList />
               </Route>
