@@ -42,7 +42,7 @@ export default function AppFooter() {
       <AppBar position="static" className={classes.toolbar}>
         <Toolbar>
           <Typography variant="caption" color="inherit" component="div" className={classes.typog}>
-            Desenvolvido com <CoffeeIcon fontSize="small" /> por <a className={classes.link} href="mailto:professor@faustocintra.com.br">Prof. Fausto Cintra</a>
+            Desenvolvido com <CoffeeIcon fontSize="small" /> por <a className={classes.link} href="mailto:jhonatan.vilar@outlook.com.br">Jhonatan Alves Vilar</a>
           </Typography>
         </Toolbar>
       </AppBar>
