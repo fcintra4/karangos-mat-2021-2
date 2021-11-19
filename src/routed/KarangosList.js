@@ -1,5 +1,4 @@
 import * as React from 'react'
-import axios from 'axios'
 import { DataGrid } from '@mui/x-data-grid'
 import { makeStyles } from '@mui/styles'
 import { IconButton } from '@mui/material'
@@ -11,6 +10,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useHistory } from 'react-router-dom'
 import ConfirmDialog from '../ui/ConfirmDialog'
 import Snackbar from '@mui/material/Snackbar'
+import { api } from '../services/api';
 
 const useStyles = makeStyles(theme => ({
   dataGrid: {
@@ -39,8 +39,8 @@ export default function KarangosList() {
   const classes = useStyles()
 
   const history = useHistory()
-  
-  const [state, setState] = React.useState(() => ({ 
+
+  const [state, setState] = React.useState(() => ({
     karangos: [],
     deletable: null,
     isDialogOpen: false,
@@ -51,45 +51,45 @@ export default function KarangosList() {
   const { karangos, deletable, isDialogOpen, isSnackOpen, snackMessage, isError } = state
 
   function getData(otherState = state) {
-    axios.get('https://api.faustocintra.com.br/karangos')
-    .then(
-      response => setState({...otherState, karangos: response.data})
-    )
+    api.get('/karangos')
+      .then(
+        response => setState({ ...otherState, karangos: response.data })
+      )
   }
 
   React.useEffect(() => {
     getData()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const columns = [
-    { 
-      field: 'id', 
+    {
+      field: 'id',
       headerName: 'Cód.',
       width: 100
     },
-    { 
-      field: 'marca', 
+    {
+      field: 'marca',
       headerName: 'Marca do carro',
       width: 200
     },
-    { 
-      field: 'modelo', 
+    {
+      field: 'modelo',
       headerName: 'Modelo',
       width: 150,
     },
-    { 
-      field: 'cor', 
+    {
+      field: 'cor',
       headerName: 'Cor',
       width: 150
     },
-    { 
-      field: 'ano_fabricacao', 
+    {
+      field: 'ano_fabricacao',
       headerName: 'Ano de fabricação',
       width: 150
     },
-    { 
-      field: 'importado', 
+    {
+      field: 'importado',
       headerName: 'Importado',
       width: 150,
       renderCell: params => {
@@ -98,12 +98,12 @@ export default function KarangosList() {
       }
     },
     {
-      field: 'placa', 
+      field: 'placa',
       headerName: 'Placa',
       width: 150
     },
-    { 
-      field: 'preco', 
+    {
+      field: 'preco',
       headerName: 'Preço',
       width: 200,
       renderCell: params => {
@@ -120,7 +120,7 @@ export default function KarangosList() {
       disableColumnMenu: true,
       sortable: false,
       renderCell: params => (
-        <IconButton 
+        <IconButton
           aria-label="editar"
           onClick={() => history.push(`/karangos/${params.id}`)}
         >
@@ -137,26 +137,23 @@ export default function KarangosList() {
       disableColumnMenu: true,
       sortable: false,
       renderCell: params => (
-        <IconButton 
-          aria-label="excluir" 
+        <IconButton
+          aria-label="excluir"
           onClick={() => handleDelete(params.id)}
         >
           <DeleteForeverIcon color="error" />
         </IconButton>
       )
     }
-
-  ];
+  ]
 
   function handleDialogClose(answer) {
-    setState({...state, isDialogOpen: false})
-
-    if(answer) {
-
-        axios.delete(`https://api.faustocintra.com.br/karangos/${deletable}`)
+    setState({ ...state, isDialogOpen: false })
+    if (answer) {
+      api.delete(`/karangos/${deletable}`)
         .then(
           () => {
-            console.log({isDialogOpen})
+            console.log({ isDialogOpen })
             const newState = {
               ...state,
               isError: false,
@@ -178,24 +175,23 @@ export default function KarangosList() {
           }
         )
     }
-    
   }
 
   function handleDelete(id) {
-    setState({...state, deletable: id, isDialogOpen: true})
+    setState({ ...state, deletable: id, isDialogOpen: true })
   }
-  
+
   function handleSnackClose(event, reason) {
     if (reason === 'clickaway') return
-    setState({...state, isSnackOpen: false})
+    setState({ ...state, isSnackOpen: false })
   }
 
   return (
     <>
       <h1>Listagem de karangos</h1>
 
-      <ConfirmDialog 
-        title="Atenção" 
+      <ConfirmDialog
+        title="Atenção"
         isOpen={isDialogOpen}
         onClose={handleDialogClose}
       >
@@ -213,12 +209,12 @@ export default function KarangosList() {
           </Button>
         }
       />
-      
+
       <Toolbar className={classes.toolbar}>
-        <Button 
+        <Button
           startIcon={<AddCircleIcon />}
-          variant="contained" 
-          size="large" 
+          variant="contained"
+          size="large"
           color="secondary"
           onClick={() => history.push('/karangos/new')}
         >
@@ -234,7 +230,7 @@ export default function KarangosList() {
           rowsPerPageOptions={[10]}
           disableSelectionOnClick={true}
           autoHeight={true}
-        />  
+        />
       </Paper>
     </>
   )
