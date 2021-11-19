@@ -3,6 +3,7 @@ import axios from 'axios'
 import { DataGrid } from '@mui/x-data-grid'
 import { makeStyles } from '@mui/styles'
 import { IconButton } from '@mui/material'
+import Checkbox from '@mui/material/Checkbox'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Paper } from '@mui/material'
@@ -75,38 +76,43 @@ export default function KarangosList() {
     },
     { 
       field: 'marca', 
-      headerName: 'marca',
-      width: 300
+      headerName: 'Marca',
+      width: 200
     },
     { 
       field: 'modelo', 
-      headerName: 'modelo',
+      headerName: 'Modelo',
       width: 200
     },
     { 
       field: 'cor', 
-      headerName: 'cor',
+      headerName: 'Cor',
       width: 200
     },
     { 
       field: 'ano_fabricacao', 
-      headerName: 'ano_fabricacao',
-      width: 300
+      headerName: 'Ano de Fabricação',
+      width: 180
     },
     { 
       field: 'importado', 
-      headerName: 'importado',
-      width: 300
+      headerName: 'Importado?',
+      width: 120,
+      renderCell: params => (
+        <Checkbox checked={params.value === "1"} readOnly />),
     },
     { 
       field: 'placa', 
-      headerName: 'placa',
-      width: 300
+      headerName: 'Placa',
+      width: 200
     },
     { 
       field: 'preco', 
-      headerName: 'preco',
-      width: 300
+      headerName: 'Preço',
+      width: 200,
+      valueFormatter: params => (
+        Number(params.value).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+      ),
     },
     {
       field: 'editar',
@@ -231,7 +237,7 @@ export default function KarangosList() {
           variant="contained" 
           size="large" 
           color="secondary"
-          onClick={() => history.push('/clientes/new')}
+          onClick={() => history.push('/karangos/new')}
         >
           Cadastrar novo Karango
         </Button>
