@@ -25,7 +25,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{
-        height: '100vh',
+        paddingBottom: '20px',
         backgroundColor: theme.palette.background.default,
         color: theme.palette.text.primary
       }}>

@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => {
       position: 'fixed',
       bottom: 0,
       width: '100%',
+      'z-index': '999'
     },
     toolbar: {
       display: 'flex',
@@ -40,7 +41,7 @@ const useStyles = makeStyles(theme => {
 export default function AppFooter() {
   const styles = useStyles()
   return (
-    <Box sx={{ flexGrow: 1 }} component='footer'
+    <Box component='footer'
       className={styles.box}>
       <AppBar className={styles.toolbar} position="static">
         <Toolbar variant="dense">
