@@ -27,6 +27,7 @@ function App() {
       <Box sx={{
         paddingBottom: '20px',
         backgroundColor: theme.palette.background.default,
+        minHeight: '100vh',
         color: theme.palette.text.primary
       }}>
         <BrowserRouter>
