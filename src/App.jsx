@@ -7,7 +7,7 @@ import AppHeader from './ui/AppHeader';
 import AppFooter from './ui/AppFooter';
 import ClientesList from './routed/ClienteList';
 import ClientesForm from './routed/ClientesForm';
-
+import KarangosList from './routed/KarangosList'
 
 const theme = createTheme({
   palette: {
@@ -25,7 +25,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{
-        paddingBottom: '20px',
+        paddingBottom: '40px',
         backgroundColor: theme.palette.background.default,
         minHeight: '100vh',
         color: theme.palette.text.primary
@@ -42,6 +42,9 @@ function App() {
               </Route>
               <Route path='/clientes/:id'>
                 <ClientesForm/>
+              </Route>
+              <Route path='/karangos'>
+                <KarangosList/>
               </Route>
             </Switch>
           </Box>

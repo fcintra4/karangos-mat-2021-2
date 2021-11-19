@@ -68,6 +68,11 @@ export default function MainMenu() {
               Cadastrar novos clientes
             </Link>
         </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link className={styles.link} to='/karangos'>
+              Karangos
+          </Link>
+        </MenuItem>
       </Menu>
     </div>
   );

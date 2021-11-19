@@ -6,7 +6,7 @@ import { makeStyles } from '@mui/styles'
 import * as React from 'react'
 import InputMask from 'react-input-mask'
 import validator from 'validator';
-import { validate as cpfValidate, validate } from 'gerador-validador-cpf'
+import { validate as cpfValidate } from 'gerador-validador-cpf'
 import ptLocale from 'date-fns/locale/pt-BR'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
@@ -337,7 +337,6 @@ export default function ClientesForm() {
           label="UF"
           value={cliente.uf}
           onChange={event => handleInputChange(event, 'uf')}
-          helperText="(Selecione)"
           variant="filled"
           required
           fullWidth
