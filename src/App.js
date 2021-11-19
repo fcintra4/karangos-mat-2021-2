@@ -25,7 +25,7 @@ function App() {
   return (
       <ThemeProvider theme={customTheme}>
         
-        <Box sx={{ height: '100vh', backgroundColor: customTheme.palette.background.default, color: customTheme.palette.text.primary }}>
+        <Box sx={{ minHeight: '100vh', backgroundColor: customTheme.palette.background.default, color: customTheme.palette.text.primary, marginBottom: '40px' }}>
         <BrowserRouter>
           <AppHeader />
           <Box component="main" sx={{ margin: '20px' }}>
