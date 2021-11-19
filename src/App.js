@@ -1,8 +1,8 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import AppHeader from './ui/AppHeader'
 import AppFooter from './ui/AppFooter'
-import { createTheme, ThemeProvider } from '@mui/material'; //import ThemeProvider, tudo dentro dele entra com o theme definido
-import { yellow, pink, grey } from '@mui/material/colors';
+import { createTheme, ThemeProvider } from '@mui/material';
+import { yellow, pink } from '@mui/material/colors';
 import Box from '@mui/material/Box'
 
 import ClientesForm from './routed/ClientesForm'
@@ -16,16 +16,7 @@ const customTheme = createTheme({
     },
     secondary: {
       main: pink[500]
-    }/*,
-    background: {
-      default: grey[900],
-      paper: grey[800]
-    },
-    text: {
-      primary: grey[50],
-      secondary: grey[300],
-      disabled: grey[600]
-    }*/
+    }
   },
 });
 
@@ -33,23 +24,24 @@ function App() {
   console.log(customTheme.palette)
   return (
       <ThemeProvider theme={customTheme}>
-        <Box sx={{ height: '100vh', backgroundColor: customTheme.palette.background.default, color: customTheme.palette.text.primary }}>
+        
+        <Box sx={{ minHeight: '100vh', backgroundColor: customTheme.palette.background.default, color: customTheme.palette.text.primary, marginBottom: '40px' }}>
         <BrowserRouter>
           <AppHeader />
           <Box component="main" sx={{ margin: '20px' }}>
             <Switch>
 
-              {/* Listagem de Clientes */}    
+              {/* Listagem de clientes */}
               <Route path="/clientes" exact>
                 <ClientesList />
               </Route>
 
-              {/* Cadastro de novos clientes */}    
+              {/* Cadastro de novos clientes */}
               <Route path="/clientes/new">
                 <ClientesForm />
               </Route>
 
-              {/* Alteração de dados de clientes já existente */}    
+              {/* Alteração de dados de cliente já existente */}
               <Route path="/clientes/:id">
                 <ClientesForm />
               </Route>

@@ -6,15 +6,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-
-export default function AlertDialog({title, children, isOpen = false, onClose}) {
- // const [open, setOpen] = React.useState(false);
+export default function ConfirmDialog({title, children, isOpen = false, onClose}) {
 
   const handleClose = answer => {
     onClose(answer)
-  //  setOpen(false);
   };
- 
+
   return (
     <div>
       <Dialog
@@ -28,7 +25,7 @@ export default function AlertDialog({title, children, isOpen = false, onClose}) 
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-           {children}
+            {children}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
