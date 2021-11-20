@@ -19,7 +19,7 @@ const customTheme = createTheme({
     }
   },
 });
-
+// added a comment for hacktoberfest
 function App() {
   console.log(customTheme.palette)
   return (
