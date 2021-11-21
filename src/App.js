@@ -7,6 +7,8 @@ import Box from '@mui/material/Box'
 
 import ClientesForm from './routed/ClientesForm'
 import ClientesList from './routed/ClientesList'
+//Trabalho 2 
+import KarangosList from './routed/KarangosList'
 
 const customTheme = createTheme({
   palette: {
@@ -46,6 +48,11 @@ function App() {
                 <ClientesForm />
               </Route>
 
+              {/* Listagem de Karangos */}
+              <Route path="/karangos" exact>
+                <KarangosList />
+              </Route>
+              
             </Switch>
           </Box>
           <AppFooter />
