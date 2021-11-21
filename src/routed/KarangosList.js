@@ -6,11 +6,11 @@ import { IconButton } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Paper } from '@mui/material'
-import { Toolbar, Button } from '@mui/material'
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { Button } from '@mui/material'
 import { useHistory } from 'react-router-dom'
 import ConfirmDialog from '../ui/ConfirmDialog'
 import Snackbar from '@mui/material/Snackbar'
+import { Checkbox } from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
   dataGrid: {
@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function ClientesList() {
+export default function KarangosList() {
 
   const classes = useStyles()
 
@@ -46,20 +46,20 @@ export default function ClientesList() {
   
   // Usando lazy initializer
   const [state, setState] = React.useState(() => ({ 
-    clientes: [],
+    karangos: [],
     deletable: null,
     isDialogOpen: false,
     isSnackOpen: false,
     snackMessage: '',
     isError: false
   }))
-  const { clientes, deletable, isDialogOpen, isSnackOpen, snackMessage, isError } = state
+  const { karangos, deletable, isDialogOpen, isSnackOpen, snackMessage, isError } = state
 
   function getData(otherState = state) {
     // Buscando os dados na API do back-end (servidor remoto)
-    axios.get('https://api.faustocintra.com.br/clientes')
+    axios.get('https://api.faustocintra.com.br/karangos')
     .then(
-      response => setState({...otherState, clientes: response.data})
+      response => setState({...otherState, karangos: response.data})
     )
   }
 
@@ -74,19 +74,42 @@ export default function ClientesList() {
       width: 120
     },
     { 
-      field: 'nome', 
-      headerName: 'Nome do cliente',
+      field: 'marca', 
+      headerName: 'Marca',
       width: 300
     },
     { 
-      field: 'cpf', 
-      headerName: 'CPF',
+      field: 'modelo', 
+      headerName: 'Modelo',
+      width: 250
+    },
+    { 
+      field: 'cor', 
+      headerName: 'Cor',
       width: 200
     },
     { 
-      field: 'telefone', 
-      headerName: 'Telefone',
-      width: 200
+      field: 'ano_fabricacao', 
+      headerName: 'Ano do Karango',
+      width: 100
+    },
+    { 
+      field: 'importado', 
+      headerName: 'Importado?',
+      width: 100,
+      renderCell: params => (
+        <Checkbox checked={params.value === "1"} readOnly />
+      )
+    },
+    { 
+      field: 'placa', 
+      headerName: 'Placa',
+      width: 100
+    },
+    { 
+      field: 'preco', 
+      headerName: 'Preço',
+      width: 100
     },
     {
       field: 'editar',
@@ -99,7 +122,7 @@ export default function ClientesList() {
       renderCell: params => (
         <IconButton 
           aria-label="editar"
-          onClick={() => history.push(`/clientes/${params.id}`)}
+          onClick={() => history.push(`/karangos/${params.id}`)}
         >
           <EditIcon />
         </IconButton>
@@ -135,7 +158,7 @@ export default function ClientesList() {
       
         // Usa o axios para enviar uma ordem de exclusão
         // para a API do back-end
-        axios.delete(`https://api.faustocintra.com.br/clientes/${deletable}`)
+        axios.delete(`https://api.faustocintra.com.br/karangos/${deletable}`)
         .then(
           // Callback se ser certo
           () => {
@@ -183,7 +206,7 @@ export default function ClientesList() {
 
   return (
     <>
-      <h1>Listagem de clientes</h1>
+      <h1>Listagem de karangos</h1>
 
       <ConfirmDialog 
         title="Atenção" 
@@ -204,22 +227,10 @@ export default function ClientesList() {
           </Button>
         }
       />
-      
-      <Toolbar className={classes.toolbar}>
-        <Button 
-          startIcon={<AddCircleIcon />}
-          variant="contained" 
-          size="large" 
-          color="secondary"
-          onClick={() => history.push('/clientes/new')}
-        >
-          Cadastrar novo cliente
-        </Button>
-      </Toolbar>
 
       <Paper elevation={4}>
         <DataGrid className={classes.dataGrid}
-          rows={clientes}
+          rows={karangos}
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[10]}
