@@ -100,18 +100,18 @@ export default function KarangosList() {
     }, 
     { 
       field: 'importado', 
-      headerName: 'Veiculo importado?',
+      headerName: 'Veiculo importado ?',
       width: 170,
       //verifica na API se importado está com 0 ou 1, então reflete no checkbox
       renderCell: params => (
-        <Checkbox checked={params.value === "1"}  />),
+        <Checkbox checked={params.value === "1"} />),
     }, 
     { 
       field: 'placa', 
       headerName: 'Placa',
       width: 170
     },
-    { //danger
+    { 
       field: 'preco', 
       headerName: 'Preço',
       width: 170,
