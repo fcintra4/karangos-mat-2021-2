@@ -7,6 +7,7 @@ import Box from '@mui/material/Box'
 
 import ClientesForm from './routed/ClientesForm'
 import ClientesList from './routed/ClientesList'
+import KarangosList from './routed/KarangosList'
 
 const customTheme = createTheme({
   palette: {
@@ -25,7 +26,7 @@ function App() {
   return (
       <ThemeProvider theme={customTheme}>
         
-        <Box sx={{ minHeight: '100vh', backgroundColor: customTheme.palette.background.default, color: customTheme.palette.text.primary, marginBottom: '40px' }}>
+        <Box sx={{ height: '100vh', backgroundColor: customTheme.palette.background.default, color: customTheme.palette.text.primary }}>
         <BrowserRouter>
           <AppHeader />
           <Box component="main" sx={{ margin: '20px' }}>
@@ -44,6 +45,14 @@ function App() {
               {/* Alteração de dados de cliente já existente */}
               <Route path="/clientes/:id">
                 <ClientesForm />
+              </Route>
+
+              <Route path="/karangos" exact>
+                <KarangosList/>
+              </Route>
+
+              <Route path="/karangos/:id" exact>
+                <KarangosList/>
               </Route>
 
             </Switch>
