@@ -12,7 +12,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { useHistory, useParams } from 'react-router-dom'
 import ConfirmDialog from '../ui/ConfirmDialog'
-
+import KarangosForm from './KarangosForm'
 
 const useStyles = makeStyles(() => ({
   form: {
