@@ -5,6 +5,7 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import { yellow, pink } from '@mui/material/colors';
 import Box from '@mui/material/Box'
 
+import KarangosList from './routed/KarangosList'
 import ClientesForm from './routed/ClientesForm'
 import ClientesList from './routed/ClientesList'
 
@@ -41,6 +42,10 @@ function App() {
                 <ClientesForm />
               </Route>
 
+              <Route path="/karangos" exact>
+                <KarangosList />
+              </Route>
+              
               {/* Alteração de dados de cliente já existente */}
               <Route path="/clientes/:id">
                 <ClientesForm />
