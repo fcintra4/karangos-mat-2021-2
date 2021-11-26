@@ -13,8 +13,9 @@ import validator from 'validator'
 import { validate as cpfValidate, validate } from 'gerador-validador-cpf'
 import { isFuture as dateIsFuture, isValid as dateIsValid } from 'date-fns'
 import axios from 'axios'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import Snackbar from '@mui/material/Snackbar'
+import ConfirmDialog from '../ui/ConfirmDialog'
 
 const useStyles = makeStyles(theme => (
   {
@@ -57,6 +58,7 @@ export default function ClientesForm() {
 
   const classes = useStyles()
   const history = useHistory()
+  const params = useParams()
 
   const [state, setState] = React.useState({
     cliente: {}, // Objeto vazio,
@@ -65,9 +67,40 @@ export default function ClientesForm() {
     isSnackOpen: false,
     snackMessage: '',
     isSendingError: false,
-    btnSendLabel: 'Enviar'
+    btnSendLabel: 'Enviar',
+    isDialogOpen: false,
+    pageTitle: 'Cadastrar novo cliente'
   })
-  const { cliente, errors, formValid, isSnackOpen, snackMessage, isSendingError, btnSendLabel } = state
+  const { cliente, errors, formValid, isSnackOpen, snackMessage, isSendingError, btnSendLabel, isDialogOpen, pageTitle } = state
+
+  // useEffect com vetor de dependências vazio: será executado apenas uma vez,
+  // na fase de montagem (carregamento) do componente
+  React.useEffect(() => {
+    
+    // Verifica se a rota contém o parâmetro id. Em caso positivo, significa
+    // que estamos alterando um cliente já existente, não criando um novo
+    if(params.id) {
+      // Altera o título da página
+      setState({...state, pageTitle: 'Atualizar cliente'})
+
+      // Carrega os dados do cliente para edição
+      axios.get(`https://api.faustocintra.com.br/clientes/${params.id}`)
+      .then(
+        response => setState({...state, cliente: response.data})
+      )
+      .catch(
+        error => {
+          setState({
+            ...state, 
+            isSnackOpen: true,
+            snackMessage: 'ERRO: ' + error.message,
+            isSendingError: true
+          })  
+        }
+      )
+    }
+
+  }, [])
 
   function handleInputChange(event, field = event.target.id) {
 
@@ -171,30 +204,45 @@ export default function ClientesForm() {
     // e múltiplos envios dos mesmos dados
     setState({...state, btnSendLabel: 'Enviando...'})
 
-    axios.post('https://api.faustocintra.com.br/clientes', cliente)
-      .then(
-        () => {
-          setState({
-            ...state, 
-            isSnackOpen: true,
-            snackMessage: 'Dados salvos com sucesso!',
-            isSendingError: false,
-            btnSendLabel: 'Enviar' // Reabilita o botão de envio 
-          })
-          
-        }
-      )
-      .catch(
-        error => {
-          setState({
-            ...state, 
-            isSnackOpen: true,
-            snackMessage: 'ERRO: ' + error.message,
-            isSendingError: true,
-            btnSendLabel: 'Enviar' // Reabilita o botão de envio 
-          })  
-        }
-      )
+    function callbackOK(response) {
+      //console.log({response})
+      setState({
+        ...state, 
+        isSnackOpen: true,
+        snackMessage: 'Dados salvos com sucesso!',
+        isSendingError: false,
+        btnSendLabel: 'Enviar' // Reabilita o botão de envio 
+      })
+    }
+
+    function callbackErro(error) {
+      setState({
+        ...state, 
+        isSnackOpen: true,
+        snackMessage: 'ERRO: ' + error.message,
+        isSendingError: true,
+        btnSendLabel: 'Enviar' // Reabilita o botão de envio 
+      }) 
+    }
+
+    // Método POST: cria um novo registro no servidor
+    // Método PUT: altera um registro já existe no servidor
+
+    // Se já houver o campo id no objeto "cliente", significa que 
+    // o registro já existia e que estamos alterando. Portanto, para
+    // salvá-lo, precisamos invocar o método PUT.
+
+    if(cliente.id) {
+      axios.put(`https://api.faustocintra.com.br/clientes/${cliente.id}`, cliente)
+      .then(callbackOK)        
+      .catch(callbackErro)
+    }
+    // Senão, criamos um novo cliente invocando o método POST
+    else {
+      axios.post('https://api.faustocintra.com.br/clientes', cliente)
+      .then(callbackOK)        
+      .catch(callbackErro)
+    }
   }
 
   function handleSnackClose(event, reason) {
@@ -204,20 +252,56 @@ export default function ClientesForm() {
     // Fechamento em condições normais
     setState({...state, isSnackOpen: false})
     
-    // Retorna ao componente de listagem
-    history.push('/clientes')
+    // Retorna ao componente de listagem, em caso
+    // de salvamento de dados bem sucedida ou de erro
+    // no carregamento de dados para alteração
+    if(!isSendingError || params.id) history.push('/clientes')
 
+  }
+  
+  function isFormTouched() {
+
+    for(let field in cliente) {
+      // Pelo menos um campo é diferente de vazio; formulário não está intacto
+      if(cliente[field] !== '') return true
+    }
+    return false  // Formulário intacto
+
+  }
+
+  function handleBackBtnClick() {
+
+    // 1) Se o formulário estiver intacto, volta à página anterior
+    if(! isFormTouched()) history.goBack()
+
+    // 2) Se o formulário não estiver intacto, o usuário deverá ser
+    // alertado sobre a eventual perda de dados. Mas, se ele confirmar
+    // que deseja voltar, assim faremos
+
+    // Abre a caixa de diálogo
+    else setState({...state, isDialogOpen: true})
+  }
+
+  function handleDialogClose(answer) {
+
+    // O usuário concordou em voltar à página anterior
+    if(answer) history.goBack()
+
+    // Fecha a caixa de diálogo
+    setState({...state, isDialogOpen: false})
   }
 
   return (
     <>
-      <h1>Cadastro de novo cliente</h1>
+      <h1>{pageTitle}</h1>
 
+      {/*
       <div>
         {JSON.stringify(cliente)}<br />
         {'formValid: ' + formValid}<br />
         {'errors:' + JSON.stringify(errors)}
       </div>
+      */}
 
       <Snackbar
         open={isSnackOpen}
@@ -230,6 +314,14 @@ export default function ClientesForm() {
           </Button>
         }
       />
+
+      <ConfirmDialog 
+        title="AVISO: possível perda de dados!" 
+        isOpen={isDialogOpen}
+        onClose={handleDialogClose}
+      >
+        Há dados ainda não salvos. Deseja realmente voltar?
+      </ConfirmDialog>
 
       <form className={classes.form} onSubmit={handleSubmit}>
         
@@ -365,7 +457,7 @@ export default function ClientesForm() {
           helperText={errors?.uf}
         >
           {unidadesFed.map((option) => (
-            <MenuItem key={option.sigla} value={option.sigla}>
+            <MenuItem key={option.sigla} value={option.sigla} selected={option.sigla === cliente.id}>
               {option.nome}
             </MenuItem>
           ))}
@@ -413,7 +505,7 @@ export default function ClientesForm() {
             {btnSendLabel}
           </Button>
           
-          <Button variant="outlined">Voltar</Button>
+          <Button variant="outlined" onClick={handleBackBtnClick}>Voltar</Button>
         </Toolbar>
 
       </form>
