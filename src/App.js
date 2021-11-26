@@ -10,6 +10,9 @@ import ClientesList from './routed/ClientesList'
 //Trabalho 2 
 import KarangosList from './routed/KarangosList'
 
+//Prova 2
+import HomePage from './routed/StartPage'
+
 const customTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -51,6 +54,10 @@ function App() {
               {/* Listagem de Karangos */}
               <Route path="/karangos" exact>
                 <KarangosList />
+              </Route>
+
+              <Route path="/" exact>
+                <HomePage />
               </Route>
               
             </Switch>
