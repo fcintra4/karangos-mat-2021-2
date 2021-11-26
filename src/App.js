@@ -7,7 +7,8 @@ import Box from '@mui/material/Box'
 
 import ClientesForm from './routed/ClientesForm'
 import ClientesList from './routed/ClientesList'
-
+import KarangosList from './routed/KarangosList'
+import StartPage from './routed/StartPage'
 const customTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -30,6 +31,16 @@ function App() {
           <AppHeader />
           <Box component="main" sx={{ margin: '20px' }}>
             <Switch>
+
+              {/* Menu Iniciar */}
+              <Route path="/" exact>
+                <StartPage />
+              </Route>
+
+              {/* Listagem de karangos */}
+              <Route path="/karangos" exact>
+                <KarangosList />
+              </Route>
 
               {/* Listagem de clientes */}
               <Route path="/clientes" exact>
