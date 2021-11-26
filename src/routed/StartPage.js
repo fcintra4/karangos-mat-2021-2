@@ -65,7 +65,7 @@ export default function StartPage() {
 //4 - Criando variavel de estado de objeto com propriedades about e imgVisible
 // Usando lazy initializer
   const [state, setState] = React.useState(() => ({ 
-    about: null,
+    about: [],
     imgVisible: false,
   }))
   const { about, imgVisible } = state
@@ -78,6 +78,7 @@ function getData(otherState = state) {
       response => setState({...otherState, about: response.data})
     )
   }
+
   React.useEffect(() => {
     getData()
   }, [])
@@ -87,16 +88,15 @@ function getData(otherState = state) {
 
   return (
         <>
-              
+              {/* testando funcionamento da API
              {JSON.stringify(about)}<br />
-              
+              */}
 
         <h1>Sobre o projeto Karangos</h1>
             
-            
-         {/*
-            <div dangerouslySetInnerHTML={{__html: about.info}} className={classes.div} />
-         */}
+         
+         <div dangerouslySetInnerHTML={{__html: about.info}}  />
+         
        
          {/* passo 9 e 10 - toolbar e classes de personalização  */}
             <Toolbar className={classes.toolbar}>
