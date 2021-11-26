@@ -62,7 +62,7 @@ export default function StartPage() {
     const classes = useStyles()
 
 
-//4 - Criando variavel de estado de objeto com propriedades about e imgVisible
+//Criando variavel de estado de objeto com propriedades about e imgVisible
 // Usando lazy initializer
   const [state, setState] = React.useState(() => ({ 
     about: [],
@@ -70,7 +70,7 @@ export default function StartPage() {
   }))
   const { about, imgVisible } = state
 
-//5 recuperando informações da API e armazenando na prop-var about
+//recuperando informações da API e armazenando na prop-var about
 function getData(otherState = state) {
     // Buscando os dados na API do back-end (servidor remoto)
     axios.get('https://api.faustocintra.com.br/sobre/1')
@@ -98,7 +98,7 @@ function getData(otherState = state) {
          <div dangerouslySetInnerHTML={{__html: about.info}}  />
          
        
-         {/* passo 9 e 10 - toolbar e classes de personalização  */}
+         {/* adicionando Toolbar com personalizalções e verificação para exibição da img */}
             <Toolbar className={classes.toolbar}>
                 <Button 
                     variant="contained" 
