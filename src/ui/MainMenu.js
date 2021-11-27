@@ -7,16 +7,17 @@ import { Link } from 'react-router-dom'
 import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles(theme => ({
-  menuItem: {
-    padding: 0
-  },
   link: {
     color: theme.palette.text.primary,
     textDecoration: 'none',
-    padding: '10px'
+    padding: '10px',
+    width: '100%'
+
+  },
+  menuItem: {
+    padding: 0
   }
 }))
-
 
 export default function MainMenu() {
 
@@ -34,14 +35,15 @@ export default function MainMenu() {
   return (
     <div>
       <IconButton
-        size="large"
-        edge="start"
-        color="inherit"
-        aria-label="menu"
+        id="basic-button"
         aria-controls="basic-menu"
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
+        size="large"
+        edge="start"
+        color="inherit"
+        aria-label="menu"
         sx={{ mr: 2 }}
       >
         <MenuIcon />
@@ -55,13 +57,12 @@ export default function MainMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem className={classes.menuItem} onClick={handleClose}>
-          <Link className={classes.link} to="/clientes">Listagem de clientes</Link>
+        <MenuItem onClick={handleClose} className={classes.menuItem}>
+          <Link to="/clientes" className={classes.link}>Listagem de clientes</Link>
         </MenuItem>
-        <MenuItem className={classes.menuItem} onClick={handleClose}>
-          <Link className={classes.link} to="/clientes/new">Cadastrar novo cliente</Link>
+        <MenuItem onClick={handleClose} className={classes.menuItem}>
+          <Link to="/clientes/new" className={classes.link}>Cadastrar novo cliente</Link>
         </MenuItem>
-        
       </Menu>
     </div>
   );
