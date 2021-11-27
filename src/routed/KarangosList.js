@@ -83,7 +83,7 @@ export default function KarangosList() {
       renderCell: params => (
         <IconButton 
           aria-label="Editar"
-          onClick={() => history.push(`/karangos/${params.id}`)} // Cadastro de veículos ainda não foi criada
+          onClick={() => history.push(`/karangos/${params.id}`)} // Cadastro de veículos ainda não foi desenvolvida
         >
           <EditIcon />
         </IconButton>
@@ -219,7 +219,7 @@ export default function KarangosList() {
           color="secondary"
           size="large"
           startIcon={<AddCircleIcon />}
-          onClick={() => history.push('/clientes/new')}
+          onClick={() => history.push('/karangos/new')} // Cadastro de Veículos ainda não foi desenvolvida
         >
           Cadastrar novo veículo
         </Button>
