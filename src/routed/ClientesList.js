@@ -185,7 +185,7 @@ export default function ClientesList() {
 
       <ConfirmDialog
         title="ATENÇÃO: operação irreversível"
-        open={isDialogOpen}
+        isOpen={isDialogOpen}
         onClose={handleDialogClose}
       >
         Deseja realmente excluir este item?

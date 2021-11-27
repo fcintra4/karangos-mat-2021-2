@@ -83,7 +83,7 @@ export default function KarangosList() {
       renderCell: params => (
         <IconButton 
           aria-label="Editar"
-          onClick={() => history.push(`/clientes/${params.id}`)}
+          onClick={() => history.push(`/karangos/${params.id}`)} // Cadastro de veículos ainda não foi criada
         >
           <EditIcon />
         </IconButton>
@@ -195,7 +195,7 @@ export default function KarangosList() {
 
       <ConfirmDialog
         title="ATENÇÃO: operação irreversível"
-        open={isDialogOpen}
+        isOpen={isDialogOpen}
         onClose={handleDialogClose}
       >
         Deseja realmente excluir este item?
