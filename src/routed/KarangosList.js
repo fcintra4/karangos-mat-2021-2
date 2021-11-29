@@ -11,7 +11,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useHistory } from 'react-router-dom'
 import ConfirmDialog from '../ui/ConfirmDialog'
 import Snackbar from '@mui/material/Snackbar'
- 
+
 const useStyles = makeStyles(theme => ({
   dataGrid: {
     // color: theme.palette.text.primary + ' !important',
@@ -57,7 +57,7 @@ export default function ClientesList() {
 
   function getData(otherState = state) {
     // Buscando os dados na API do back-end (servidor remoto)
-    axios.get('https://api.faustocintra.com.br/clientes')
+    axios.get('https://api.faustocintra.com.br/karangos')
     .then(
       response => setState({...otherState, clientes: response.data})
     )
@@ -74,25 +74,40 @@ export default function ClientesList() {
       width: 120
     },
     { 
-      field: 'nome', 
-      headerName: 'Nome do cliente',
+      field: 'marca', 
+      headerName: 'Marca',
       width: 300
     },
     { 
-      field: 'cpf', 
-      headerName: 'CPF',
+      field: 'modelo', 
+      headerName: 'Modelo',
       width: 200
     },
     { 
-      field: 'telefone', 
-      headerName: 'Telefone',
+      field: 'cor', 
+      headerName: 'Cor',
       width: 200
     },
     { 
-      field: 'email', 
-      headerName: 'E-mail',
+      field: 'ano_fabricacao', 
+      headerName: 'Ano fabricação',
       width: 300
-    },
+    }, 
+    { 
+        field: 'importado', 
+        headerName: 'Importado',
+        width: 300
+      },
+      { 
+        field: 'placa', 
+        headerName: 'Placa',
+        width: 300
+      },
+      { 
+        field: 'preco', 
+        headerName: 'Preco',
+        width: 300
+      },
     {
       field: 'editar',
       headerName: 'Editar',
@@ -140,7 +155,7 @@ export default function ClientesList() {
       
         // Usa o axios para enviar uma ordem de exclusão
         // para a API do back-end
-        axios.delete(`https://api.faustocintra.com.br/clientes/${deletable}`)
+        axios.delete(`https://api.faustocintra.com.br/karangos/${deletable}`)
         .then(
           // Callback se ser certo
           () => {
