@@ -34,7 +34,7 @@ export default function KarangosList() {
 
   const columns = [
     { 
-      field: 'id', 
+      field: 'id',
       headerName: 'Cód.', 
       width: 100,
       type: 'number' 
