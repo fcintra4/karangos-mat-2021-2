@@ -2,12 +2,12 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import AppHeader from './ui/AppHeader'
 import AppFooter from './ui/AppFooter'
 import { createTheme, ThemeProvider } from '@mui/material';
-import { yellow, pink, grey } from '@mui/material/colors';
+import { yellow, pink } from '@mui/material/colors';
 import Box from '@mui/material/Box'
-import KarangosList from './routed/KarangosList';
-import KarangosForm from './routed/KarangosForm';
-import ClientesForm from './routed/ClientForm';
-import ClientesList from './routed/ClientList';
+
+import ClientesForm from './routed/ClientesForm'
+import ClientesList from './routed/ClientesList'
+import StartPage from './routed/StartPage'
 
 const customTheme = createTheme({
   palette: {
@@ -17,16 +17,7 @@ const customTheme = createTheme({
     },
     secondary: {
       main: pink[500]
-    }/*,
-    background: {
-      default: grey[900],
-      paper: grey[800]
-    },
-    text: {
-      primary: grey[50],
-      secondary: grey[300],
-      disabled: grey[600]
-    }*/
+    }
   },
 });
 
@@ -35,25 +26,30 @@ function App() {
   return (
       <ThemeProvider theme={customTheme}>
         
-        <Box sx={{ height: '100vh', backgroundColor: customTheme.palette.background.default, color: customTheme.palette.text.primary }}>
+        <Box sx={{ minHeight: '100vh', backgroundColor: customTheme.palette.background.default, color: customTheme.palette.text.primary, marginBottom: '40px' }}>
         <BrowserRouter>
           <AppHeader />
           <Box component="main" sx={{ margin: '20px' }}>
             <Switch>
-            <Route path="/list">
-                <KarangosList />
+
+              {/* 3. Altere o arquivo "Apps.js" e adicione um novo Route, com o valor path="/". Assegure-se de que esse novo Route seja POSICIONADO ANTES de todos os outros. Faça com que o componente StartPage seja carregado pelo novo Route. Dessa forma, o componente será exibido logo no início.*/}
+
+              <Route path="/" exact>
+                <StartPage />
               </Route>
-              <Route path="/new">
-                <KarangosForm />
-              </Route>
-              <Route path="/edit/:id">
-                <KarangosForm/>
-              </Route>
+
+              {/* Listagem de clientes */}
               <Route path="/clientes" exact>
                 <ClientesList />
               </Route>
 
+              {/* Cadastro de novos clientes */}
               <Route path="/clientes/new">
+                <ClientesForm />
+              </Route>
+
+              {/* Alteração de dados de cliente já existente */}
+              <Route path="/clientes/:id">
                 <ClientesForm />
               </Route>
 
