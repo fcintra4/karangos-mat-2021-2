@@ -33,7 +33,7 @@
     10. Aplique as classes de estilo definidas em useStyles nos lugares apropriados.
 
     10. Coloque os arquivos "App.js" e "StartPage.js" em um ZIP para fazer a entrega da prova.
-
+    
 */
 
 import React from 'react'
