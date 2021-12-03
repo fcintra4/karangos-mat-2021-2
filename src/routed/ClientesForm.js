@@ -11,7 +11,7 @@ import Button from '@mui/material/Button'
 import Toolbar from '@mui/material/Toolbar'
 import validator from 'validator'
 import { validate as cpfValidate, validate } from 'gerador-validador-cpf'
-import { isFuture as dateIsFuture, isValid as dateIsValid } from 'date-fns'
+import { isFuture as dateIsFuture, isValid as dateIsValid, parseJSON as dateParseJSON } from 'date-fns'
 import axios from 'axios'
 import { useHistory, useParams } from 'react-router-dom'
 import Snackbar from '@mui/material/Snackbar'
@@ -61,7 +61,7 @@ export default function ClientesForm() {
   const params = useParams()
 
   const [state, setState] = React.useState({
-    cliente: {}, // Objeto vazio,
+    cliente: {uf: ''},
     errors: {},
     formValid: true,
     isSnackOpen: false,
@@ -142,6 +142,13 @@ export default function ClientesForm() {
     if(!fields.rg || !validator.isLength(fields.rg.trim(), {min: 4})) {
       newErrors.rg = 'Doc. identidade incompleto ou não informado'
     }
+
+    // Se o campo "data_nascimento" estiver em formato de string, faz a conversão
+    // para um objeto Date antes de efetuar a validação
+    if(typeof fields.data_nascimento === 'string') {
+      fields.data_nascimento = dateParseJSON(fields.data_nascimento)
+    }
+    // console.log('data_nascimento:', fields.data_nascimento)
 
     // Validação do campo "data_nascimento": deve ser válida e não pode ser futura
     if(!fields.data_nascimento || !dateIsValid(fields.data_nascimento) 
