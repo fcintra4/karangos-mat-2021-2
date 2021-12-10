@@ -13,6 +13,9 @@ import KarangosList from './routed/KarangosList'
 //Prova 2
 import HomePage from './routed/StartPage'
 
+//Prova 3
+import Autor from './routed/Autor'
+
 const customTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -58,6 +61,10 @@ function App() {
 
               <Route path="/" exact>
                 <HomePage />
+              </Route>
+
+              <Route path="/autor" exact>
+                <Autor />
               </Route>
               
             </Switch>
