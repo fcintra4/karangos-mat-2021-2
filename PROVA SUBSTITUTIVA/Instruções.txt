@@ -1,0 +1,28 @@
+1. Crie um novo arquivo de componente e coloque-o na pasta src/routed.
+
+2. Nesse componente, declare uma variável de estado e, usando um "lazy initializer", inicialize-a com o valor lido de uma entrada no "localStorage" chamada "favs".
+
+3. Após a variável de estado "favs" ter sido atualizada e gerar uma atualização do componente, como EFEITO COLATERAL, armazene o conteúdo da variável de estado no "localStorage".
+
+4. Dentro do componente, insira um título de nível 1 com o texto "Sobre o autor" ou "Sobre a autora", conforme o caso.
+
+5. Abaixo do título, coloque um componente do tipo Cartão (https://mui.com/pt/components/cards/) e vá no exemplo chamado "Mídia".
+
+6. Faça o upload de uma foto sua e, usando os recursos do React, coloque sua foto no lugar da imagem que veio no exemplo do cartão. Ajuste prop de altura da imagem, se necesário.
+
+7. Coloque seu nome no título do cartão.
+
+8. No corpo do cartão, escreva um pequeno texto sobre você.
+
+7. Na seção CardActions, deixe apenas um dos botões, com o aspecto visual conforme a imagem RESULTADO.png, incluindo o ícone no início. Ao clicar nesse botão, o valor da variável de estado deve ser incrementado. O número que aparece entre parênteses é o valor da variável de estado, que deve aumentar a cada clique dado.
+
+8. Ao se recarregar a página, o último número de favs exibido no botão deverá ser mostrado.
+
+9. Crie uma rota para esse componente no arquivo App.js.
+
+10. Crie uma entrada de menu que carregue a rota recém-criada.
+
+11. Para entrega, inclua em um arquivo ZIP:
+  a) App.js
+  b) MainMenu.js
+  c) O arquivo do componente criado.
